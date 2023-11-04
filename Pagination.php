@@ -14,6 +14,8 @@ class Pagination {
     public function __construct($total, $limit = 10, $url = '') {
         $this->total = $total;
         $this->limit = $limit;
+        $this->url   = $url;
+
         $this->pages = ceil($total / $limit);
 
         $this->page = min(
