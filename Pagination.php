@@ -7,9 +7,8 @@
 class Pagination {
     const QUERY_STRING = 'page';
 
-    private $total, $limit;
+    private $total, $limit, $url;
     private $pages, $page;
-    private $url;
 
     public function __construct($total, $limit = 10, $url = '') {
         $this->total = $total;
@@ -58,7 +57,7 @@ class Pagination {
             ? '&'
             : '?';
 
-        return sprintf('<a class="pagination-item" href="%s=%s">%s</a>',
+        return sprintf('<a class="pagination-item" href="%s=%d">%s</a>',
             $this->url . $qs . self::QUERY_STRING,
             $number,
             $text
