@@ -58,10 +58,8 @@ class Pagination {
             ? '&'
             : '?';
 
-        return sprintf('<a class="pagination-item" href="%s%s%s=%s">%s</a>',
-            $this->url,
-            $qs,
-            self::QUERY_STRING,
+        return sprintf('<a class="pagination-item" href="%s=%s">%s</a>',
+            $this->url . $qs . self::QUERY_STRING,
             $number,
             $text
         );
