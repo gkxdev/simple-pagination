@@ -7,7 +7,7 @@
 require_once __DIR__ . '/db.inc.php';
 require_once __DIR__ . '/Pagination.php';
 
-$total = $pdo->query("SELECT count(id) FROM countries")
+$total = $pdo->query("SELECT COUNT(id) FROM countries")
     ->fetchColumn();
 
 $pagination = new Pagination($total, 10);
