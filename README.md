@@ -1,6 +1,6 @@
 # Pagination
 
-PHP ile geliştirdiğim, kullanımı oldukça basit bir sayfalama kütüphanesidir. PDO ile kullanım örneği mevcuttur.
+Basit PHP sayfalama kütüphanesi.
 
 ## Kullanımı
 
