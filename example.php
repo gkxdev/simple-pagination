@@ -1,9 +1,4 @@
 <?php
-/**
- * Pagination PDO Örneği
- * @author Gökhan Kaya <gkxdev@gmail.com>
- */
-
 require_once __DIR__ . '/db.inc.php';
 require_once __DIR__ . '/Pagination.php';
 
