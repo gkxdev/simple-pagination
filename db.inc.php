@@ -1,9 +1,4 @@
 <?php
-/**
- * db.inc.php
- * @author Gökhan Kaya <gkxdev@gmail.com>
- */
-
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
