@@ -10,12 +10,14 @@ class Pagination {
     private $total, $limit, $url;
     private $pages, $page;
 
-    public function __construct($total, $limit = 10, $url = '') {
+    public function __construct(int $total, int $limit = 10, $url = '') {
         $this->total = $total;
         $this->limit = $limit;
-        $this->url   = $url;
+        $this->url   = url($url);
 
-        $this->pages = ceil($total / $limit);
+        if ($this->total == 0) $this->total = 1;
+
+        $this->pages = ceil($this->total / $this->limit);
 
         $this->page = min(
             max((int) @$_GET[self::QUERY_STRING], 1),
@@ -32,35 +34,48 @@ class Pagination {
     }
 
     public function html() {
-        $prev = $next = null;
+        // if ($this->pages == 1) return;
 
-        if ($this->page > 1) {
-            $prev = $this->makeLink($this->page - 1, '&larr; Geri');
-        }
+        $prevNumber = $this->page > 1
+            ? ($this->page - 1)
+            : 1;
 
-        if ($this->page < $this->pages) {
-            $next = $this->makeLink($this->page + 1, 'İleri &rarr;');
-        }
+        $nextNumber = $this->page < $this->pages
+            ? ($this->page + 1)
+            : $this->pages;
 
-        $info = sprintf('<span class="pagination-info">%d / %d</span>',
-            $this->page,
-            $this->pages
-        );
+        $prevUrl      = $this->getUrl($prevNumber);
+        $prevDisabled = $this->page <= 1 ? 'disabled' : '';
 
-        return sprintf('<div class="pagination">%s%s%s</div>',
-            $prev, $info, $next
-        );
+        $nextUrl      = $this->getUrl($nextNumber);
+        $nextDisabled = $this->page >= $this->pages ? 'disabled' : '';
+
+        return <<<HTML
+        <nav>
+            <ul class="pagination justify-content-center my-3">
+                <li class="page-item">
+                    <a class="page-link {$prevDisabled}" href="{$prevUrl}">&larr;</a>
+                </li>
+                 <li class="page-item">
+                    <a class="page-link disabled" href="javascript:;">{$this->page} / {$this->pages}</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link {$nextDisabled}" href="{$nextUrl}">&rarr;</a>
+                </li>
+            </ul>
+        </nav>
+        HTML;
     }
 
-    private function makeLink($number, $text) {
+    private function getUrl(int $number) {
         $qs = (bool) strpos($this->url, '?')
             ? '&'
             : '?';
 
-        return sprintf('<a class="pagination-item" href="%s=%d">%s</a>',
-            $this->url . $qs . self::QUERY_STRING,
-            $number,
-            $text
+        return sprintf('%s%s=%d',
+            $this->url,
+            ($qs . self::QUERY_STRING),
+            $number
         );
     }
 }
