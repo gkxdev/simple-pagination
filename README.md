@@ -51,10 +51,4 @@ echo $pagination->html();
 
 ### CSS
 
-Görünümünü özelleştirmek için aşağıdaki CSS kodlarını kullanabilirsiniz.
-
-```css
-.pagination { margin-top: 10px; }
-.pagination-item { display: inline-block; }
-.pagination-info { margin: 0 10px; }
-```
+Bootstrap pagination bileşenini kullanmaktadır.
